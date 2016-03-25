@@ -1,0 +1,19 @@
+{
+  "name" : "wen2",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zerocode1337/wen2"
+  },
+  "scripts" : {
+    "electron" : "NODE_ENV=dev electron ."
+  },
+  "main" : "electron.js",
+  "dependencies" : {
+    "electron-debug" : "^0.5.2",
+    "electron-window-state" : "^2.0.0"
+  },
+  "engines" : {
+    "node" : ">=4.2.3"
+  }
+}
