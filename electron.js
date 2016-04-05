@@ -11,12 +11,15 @@ const BrowserWindow = electron.BrowserWindow; //Module to create native browser 
 const Menu = require('menu');
 
 const path = require('path');
+//if(process.env.NODE_ENV === 'dev'){
+//  require('electron-debug')({
+//    showDevTools: true;
+//  });
+//}
 
-if(process.env.NODE_ENV === 'dev'){
-  require('electron-debug')({
-    showDevTools: true;
-  });
-}
+//Start Servers
+require('./server');
+
 
 //Keep a global reference of the window object, if you don't, the window will
 //be closed automatically when the JavaScript object is garbage collected.
@@ -24,11 +27,11 @@ var mainWindow = null;
 
 //Quit when all windows are closed.
 app.on('window-all-closed', function(){
-  //On OS x it is common for applications and their menu bar
-  //to stay active until the user quits explicitly with cmd+Q
-  if (process.platform != 'darwin') {
-    app.quit();
-  }
+    //On OS x it is common for applications and their menu bar
+    //to stay active until the user quits explicitly with cmd+Q
+    if (process.platform != 'darwin') {
+        app.quit();
+    }
 });
 
 /*
@@ -36,22 +39,33 @@ app.on('window-all-closed', function(){
  *initialization and is ready to create browser windows.
  */
 app.on('ready', function() {
-  //Load the previous state with fallback to defaluts
-  //let windowState = windowStateKeeper('main', {
-  //  width : 1000,
-  //  height: 600
-  //});
-  ////Create the browser window.
-  //mainWindow = new BrowserWindow({
-  //  'x'      : windowState.x,
-  //  'y'      : windowState.y,
-  //  'width'  : windowState.width,
-  //  'height' : windowState.height,
+    console.log(path.resolve(path.join(__dirname, 'preload.js')));
+    //Load the previous state with fallback to defaluts
+    let windowState = windowStateKeeper('main', {
+        width : 1800,
+        height: 600
+    });
+    //Create the browser window.
+    mainWindow = new BrowserWindow({
+        x        : windowState.x,
+        y        : windowState.y,
+        width    : windowState.width,
+        height   : windowState.height,
+        minWidth : 800,
+        minHeight: 600,
+        title    : "MonkeyWen",
+        icon     : path.join(__dirname, '/dist/images/icon/monkey_128.png'),
+        webPreferences  : {
+            nodeIntegration : true,
+            preload        : path.resolve(path.join(__dirname, 'preload.js'))
+        },
+        autoHideMenuBar : true
+    });
+    // Load the index.html
+    mainWindow.loadURL('http://localhost:1337/');
 
-  //});
-  mainWindow = new BrowserWindow({width: 800, height: 600});
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
-  mainWindow.on('closed', function(){
-     mainWindow = null;
-  });
+    // Emitted when the window is closed.
+    mainWindow.on('closed', function(){
+        mainWindow = null;
+    });
 });
