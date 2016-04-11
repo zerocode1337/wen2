@@ -39,7 +39,6 @@ app.on('window-all-closed', function(){
  *initialization and is ready to create browser windows.
  */
 app.on('ready', function() {
-    console.log(path.resolve(path.join(__dirname, 'preload.js')));
     //Load the previous state with fallback to defaluts
     let windowState = windowStateKeeper('main', {
         width : 1800,
