@@ -1,26 +1,43 @@
 <!DOCTYPE html>
-<html class=no-js>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=">
-        <title>MonkeyWen</title>
-    </head>
-    <body>
-      <script>
-        const remote = require('electron').remote;
-        const Menu = remote.Menu;
-        const MenuItem = remote.MenuItem;
+<html manifest="index.appcache" class=no-js>
 
-        var menu = new Menu();
-        menu.append(new MenuItem({ label: 'MenuItem1', click: function() { console.log('item 1 clicked'); } }));
-        menu.append(new MenuItem({ type: 'separator' }));
-        menu.append(new MenuItem({ label: 'MenuItem2', type: 'checkbox', checked: true }));
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="utf-8">
+    <title>MonkeyWen</title>
+    <meta name="description" content="Note Electron Markdown CrossPlatform">
+    <meta name="format-detection" content="telephone=no">
+    <meta name=viewport content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+    <meta name=mobile-web-app-capable content=yes>
+    <link rel=icon sizes=36x36 href=images/icon/monkey_32.png>
+    <link rel=icon sizes=72x72 href=images/icon/monkey_48.png>
+    <link rel=icon sizes=48x48 href=images/icon/monkey_72.png>
+    <link rel=icon sizes=96x96 href=images/icon/monkey_96.png>
+    <meta name="application-name" content="MonkeyWen">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/theme-default.css">
+    <script src="components/modernizr/modernizr.js" charset="utf-8"></script>
+</head>
 
-        window.addEventListener('contextmenu', function (e) {
-          e.preventDefault();
-          menu.popup(remote.getCurrentWindow());
-        }, false);
-        
-        </script>
-        <h1 class="">hello world!</h1>
-    </body>
+<body class=-noscroll>
+    <div class=layout id=wrapper>
+        <div id=sidebar class=layout--sidebar>
+            <div id=sidebar--navbar class=layout--navbar>
+            </div>
+            <div id=sidebar--content class="layout--body -scroll">
+            </div>
+        </div>
+        <div id=content class="layout--content hidden-xs">
+        </div>
+        <div id=layout--backdrop class=layout--backdrop>
+        </div>
+        <div id=layout--brand class="layout--brand -loading">
+        </div>
+    </div>
+    <div id=modal></div>
+    <!--[if lt IE 7]>
+     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+     <![endif]-->
+    <script data-main=scripts/main src=bower_components/requirejs/require.js></script>
+</body>
+
 </html>

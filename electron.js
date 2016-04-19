@@ -22,20 +22,14 @@ var menuTemplate = [{
     submenu: [{
         label: '退出',
         accelerator: 'CmdOrCtrl+Q',
-        click: function(){
-             app.quit();
+        click: function() {
+            app.quit();
         }
     }, {
         label: '最小化',
         accelerator: 'CmdOrCtrl+H',
-        click: function(){
-             app.hide();
-        }
-    }, {
-        label: '最大化',
-        accelerator: 'CmdOrCtrl+S',
-        click: function(){
-             app.show();
+        click: function() {
+            app.hide();
         }
     }]
 }, {
@@ -79,7 +73,7 @@ app.on('window-all-closed', function(){
 app.on('ready', function() {
 
     // Load the menu
-    menu.setApplicationMenu(menu.buildFromTemplate(menuTemplate));
+    // menu.setApplicationMenu(menu.buildFromTemplate(menuTemplate));
 
     // Load the previous state with fallback to defaluts
     let windowState = windowStateKeeper('main', {
@@ -102,8 +96,36 @@ app.on('ready', function() {
         },
         autoHideMenuBar : true
     });
+
+    /*
+     mainWindow.webContents.on('will-navigate', function(event, url) {
+        if(url.indexOf('localhost:1337') === -1 &&
+           url.indexOf('oauth') === -1 &&
+           url.indexOf('sign_in') === -1) {
+               event.preventDefault();
+               require('open')(url,'chrome');
+           }
+    });
+
+    mainWindow.webContents.on('new-window', function(event, url) {
+        if(url.indexOf('localhost:1337') === -1 &&
+           url.indexOf('oauth') === -1 &&
+           url.indexOf('sign_in') === -1) {
+               event.preventDefault();
+               require('open')(url,'chrome');
+           }
+    });
+
+    if(windowState.isMaximized) {
+         mainWindow.maximize();
+    }
+    */
     // Load the index.html
     mainWindow.loadURL('http://localhost:1337/');
+
+    mainWindow.on('close', function() {
+         windowState.saveState(mainWindow);
+    });
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function(){
