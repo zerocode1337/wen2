@@ -1,0 +1,13 @@
+#layout--brand{
+    background: #000;
+}
+.layout--brand.-loading:after {
+    content: 'Loading...'
+}
+.layout--brand.-loading:after {
+    font-size: 50px;
+    font-variant: small-caps;
+    margin: 0;
+    margin-bottom: 10px;
+    color: #eee;
+}

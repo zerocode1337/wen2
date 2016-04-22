@@ -76,7 +76,7 @@ app.on('ready', function() {
 
     // Load the previous state with fallback to defaluts
     let windowState = windowStateKeeper('main', {
-        width : 1800,
+        width : 1000,
         height: 600
     });
     // Create the browser window.
@@ -96,7 +96,6 @@ app.on('ready', function() {
         autoHideMenuBar : true
     });
 
-    /*
      mainWindow.webContents.on('will-navigate', function(event, url) {
         if(url.indexOf('localhost:1337') === -1 &&
            url.indexOf('oauth') === -1 &&
@@ -118,7 +117,6 @@ app.on('ready', function() {
     if(windowState.isMaximized) {
          mainWindow.maximize();
     }
-    */
     // Load the index.html
     mainWindow.loadURL('http://localhost:1337/');
 
